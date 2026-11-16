@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#142b4a"><meta name="description" content="لمّة - مساعدك الدراسي الجامعي">
+<link rel="manifest" href="manifest.webmanifest">
+<title>لمّة | LAMMA</title>
+<style>
+:root{--navy:#142b4a;--blue:#2878d0;--bg:#f4f7fb;--card:#fff;--ink:#17263a;--muted:#728096;--line:#e7edf5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:86px}
+header{height:68px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;background:var(--bg);position:sticky;top:0;z-index:2}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:22px}.logo{background:var(--navy);color:white;border-radius:13px;width:40px;height:40px;display:grid;place-items:center}
+main{padding:8px 17px 24px;max-width:680px;margin:auto}.hero{background:linear-gradient(135deg,#142b4a,#28649d);color:white;padding:22px;border-radius:24px;margin-bottom:22px}.hero h1{font-size:22px;margin:0 0 8px}.hero p{margin:0;color:#dceafa}
+h2{font-size:19px;margin:18px 0 12px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:15px;margin-bottom:11px}.statnum{font-size:26px;font-weight:900;margin-top:8px}.muted{color:var(--muted);font-size:13px}.task{display:flex;gap:12px;align-items:flex-start}.stripe{width:4px;min-height:72px;border-radius:8px;background:var(--blue)}.stripe.warn{background:#e49a35}.tasktop{display:flex;justify-content:space-between;gap:8px;align-items:center}.pill{font-size:11px;padding:4px 9px;border-radius:20px;background:#e8f1ff;color:#245a91;white-space:nowrap}.pill.warn{background:#fff1de;color:#9b5b0b}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:5}
+nav button{border:0;background:none;color:var(--muted);font:inherit;font-size:11px;padding:5px 0;display:grid;gap:3px;justify-items:center}nav button b{font-size:20px;font-weight:500}nav button.active{color:var(--blue);font-weight:800}
+.action{border:0;border-radius:13px;background:var(--blue);color:white;padding:12px 16px;font:inherit;font-weight:700;width:100%;margin-top:12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.chips button{border:1px solid var(--line);border-radius:20px;background:var(--card);padding:8px 14px;color:var(--ink);font:inherit}.chips button.active{background:#e8f1ff;color:#245a91;border-color:#bcd6f7}
+input[type=file]{display:none}.notice{background:#fff8e9;border:1px solid #f3dfb8;padding:13px;border-radius:14px;font-size:12px;color:#79541c}
+body.dark{--bg:#101a28;--card:#192638;--ink:#edf3fb;--muted:#a8b5c7;--line:#2b3a4e}
+</style></head>
+<body>
+<header><div class="brand"><span class="logo">✦</span><span>لمّة <small style="font-size:10px;color:#2878d0;letter-spacing:1px">LAMMA</small></span></div><button onclick="alert('الإشعارات هتتفعّل في مرحلة لاحقة')" aria-label="الإشعارات" style="border:0;background:none;font-size:22px">♧</button></header>
+<main id="app"></main>
+<nav id="nav">
+<button class="active" data-tab="home"><b>⌂</b>الرئيسية</button><button data-tab="tasks"><b>☷</b>مهامي</button><button data-tab="books"><b>▤</b>كتبي</button><button data-tab="training"><b>✎</b>تدريبي</button><button data-tab="account"><b>◉</b>حسابي</button>
+</nav>
+<script>
+const app=document.getElementById('app');let tab='home',filter='الكل';
+const tasks=[{title:'تلخيص موضوع البلاغة',course:'مدخل إلى علوم اللغة العربية',kind:'تكليف',due:'موعد تجريبي — بعد ٣ أيام'},{title:'اختبار قصير في النحو',course:'النحو العربي',kind:'كويز',due:'موعد تجريبي — غدًا',urgent:true},{title:'قراءة الفصل الأول',course:'علم اللغة',kind:'تكليف',due:'موعد تجريبي — بعد أسبوع'}];
+function taskCard(t){return `<section class="card task"><i class="stripe ${t.urgent?'warn':''}"></i><div style="flex:1"><div class="tasktop"><strong>${t.title}</strong><span class="pill ${t.urgent?'warn':''}">${t.kind}</span></div><p class="muted">${t.course}</p><small class="muted">◷ ${t.due}</small></div></section>`}
+function render(){
+document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+if(tab==='home')app.innerHTML=`<section class="hero"><h1>أهلاً بيك في لمّة 👋</h1><p>كل دراستك في مكان واحد</p><p style="margin-top:18px">✦ خلّي مذاكرتك أرتب وأسهل</p></section><h2>النهارده في لمّة</h2><div class="stats"><section class="card"><span>▣</span><div class="statnum">٣</div><span class="muted">مهام مفتوحة</span></section><section class="card"><span>◷</span><div class="statnum">١</div><span class="muted">قرب موعدها</span></section></div><h2>المهام القادمة</h2>${taskCard(tasks[0])}${taskCard(tasks[1])}<div class="notice">المعروض بيانات تجريبية. لم يتم ربط Moodle حتى الآن.</div>`;
+if(tab==='tasks')app.innerHTML=`<h2>مهامي الدراسية</h2><p class="muted">تابع التكليفات والكويزات ومواعيدها من مكان واحد.</p><div class="chips">${['الكل','تكليف','كويز'].map(x=>`<button class="${filter===x?'active':''}" onclick="filter='${x}';render()">${x}</button>`).join('')}</div>${tasks.filter(t=>filter==='الكل'||t.kind===filter).map(taskCard).join('')}<div class="notice">بيانات المهام تجريبية وليست مسحوبة من الجامعة.</div>`;
+if(tab==='books')app.innerHTML=`<h2>كتبي</h2><section class="card" style="text-align:center;padding:28px 18px"><div style="font-size:42px">▤</div><h3>مكتبتك الدراسية</h3><p class="muted">اختار ملف PDF من موبايلك لبدء تجهيز مكتبتك.</p><label class="action" style="display:block;cursor:pointer" for="pdf">اختيار ملف PDF</label><input id="pdf" type="file" accept="application/pdf" onchange="picked(this)"><p id="picked" class="muted"></p></section><div class="notice">اختيار الملف هنا تجريبي؛ قراءة PDF والتلخيص هيتضافوا لاحقًا.</div>`;
+if(tab==='training')app.innerHTML=`<h2>تدريبي</h2><section class="card" style="text-align:center;padding:28px 18px"><div style="font-size:42px">✎</div><h3>اختبر فهمك</h3><p class="muted">تدريب بأسئلة اختيار من متعدد وأسئلة مقالية مبنية على ملفاتك.</p><button class="action" onclick="alert('ميزة التدريب تحت التطوير')">ابدأ تدريب</button></section><div class="notice">محرك الأسئلة والتصحيح لسه مش متصل.</div>`;
+if(tab==='account')app.innerHTML=`<h2>حسابي</h2><section class="card"><strong>طالب جامعي</strong><p class="muted">جامعة عين شمس — بيانات تجريبية</p><hr style="border:0;border-top:1px solid var(--line)"><strong>منصة Moodle</strong><p class="muted">asu2learn.asu.edu.eg/education/</p></section><section class="card"><label><input type="checkbox" onchange="document.body.classList.toggle('dark',this.checked)"> تفعيل الوضع الداكن</label></section><div class="notice">حالة الاتصال: غير متصل. تفعيل Moodle يحتاج صلاحيات Web Services من الجامعة.</div><p class="muted" style="text-align:center">الإصدار 0.2 — نموذج واجهات تجريبي</p>`;
+}
+function picked(input){document.getElementById('picked').textContent=input.files[0]?'تم اختيار: '+input.files[0].name:''}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{tab=b.dataset.tab;render()}));render();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script></body></html>
